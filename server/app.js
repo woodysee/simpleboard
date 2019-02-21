@@ -1,5 +1,6 @@
 // console.info('Declaring dependencies...');
 require("dotenv").config();
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
@@ -32,7 +33,7 @@ app.use(flash());
 require('./views')(app);
 
 // console.info("Initialising passport...");
-require('./resources/users/lib/passport.local')(app);  
+require('./resources/users/lib/passport.local')(app);
 // console.info("Initialising passport local strategy...");
 
 // console.info('Loading resources...');
