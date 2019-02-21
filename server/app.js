@@ -16,14 +16,6 @@ app.use(bodyParser.json());
 require("./storage/logger")(app, morgan);
 
 app.use(require("cookie-parser")());
-app.use(require("express-session")({
-  cookie: {
-    maxAge: 60000
-  },
-  secret: process.env.USERS__PASSPORT_EXPRESS_SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false, // false means that unless you are hitting a page that is giving you a cookie & session you won't be getting a cookie or session.
-}));
 app.use(flash());
 
 // console.info('Connecting to web client...');
