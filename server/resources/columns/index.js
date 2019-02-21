@@ -1,29 +1,25 @@
-const metalog = {};
-metalog.resource = {};
-metalog.resource.title = 'Columns';
-metalog.prefix = ` ->`;
+const meta = {};
+meta.resource = {};
+meta.resource.title = 'Columns';
+meta.prefix = `->`;
 
-console.info(`${metalog.resource.title}: Loading resource...`);
-console.info(`${metalog.prefix} Importing dependencies...`);
+console.info(`${meta.resource.title}: Loading resource...`);
+console.info(`${meta.prefix} Importing dependencies...`);
 
 const express = require("express");
 const router = express.Router();
 const controller = require("./controller");
 
-console.info(`${metalog.prefix} ...imported dependencies.`);
+console.info(`${meta.prefix} ...imported dependencies.`);
 
-router.post("/", controller.create.one);
-router.post("/many", controller.create.many);
+router.post("/api", controller.create.one);
 
-router.get("/:id", controller.read.one);
-router.get("/", controller.read.many);
+router.get("/api/:id", controller.read.one);
 
-router.put("/:id", controller.update.one);
-router.put("/", controller.update.many);
+router.put("/api/:id", controller.update.one);
 
-router.delete("/:id", controller.delete.one);
-router.delete("/", controller.delete.many);
+router.delete("/api/:id", controller.delete.one);
 
-console.info(`${metalog.resource.title}: ...Loaded resource.`);
+console.info(`${meta.resource.title}: ...Loaded resource.`);
 
 module.exports = router;

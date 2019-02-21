@@ -32,13 +32,8 @@ app.use(flash());
 // console.info('Initialising server-side view rendering...');
 require('./views')(app);
 
-// console.info("Initialising passport...");
-require('./resources/users/lib/passport.local')(app);
-// console.info("Initialising passport local strategy...");
-
 // console.info('Loading resources...');
-app.use("/users", require("./resources/users"));
-app.use("/tasks", require("./resources/generic"));
+app.use("/columns", require("./resources/columns"));
 
 /*
 **
