@@ -14,6 +14,7 @@ console.info(`${meta.prefix} ...imported dependencies.`);
 
 router.post("/api", controller.create.one);
 
+router.get("/api", controller.read.all);
 router.get("/api/:id", controller.read.one);
 
 router.put("/api/:id", controller.update.one);
