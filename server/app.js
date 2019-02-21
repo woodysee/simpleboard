@@ -16,7 +16,7 @@ require("./storage/logger")(app, morgan);
 
 app.use(require("cookie-parser")());
 app.use(require("express-session")({
-  cookie: { 
+  cookie: {
     maxAge: 60000
   },
   secret: process.env.USERS__PASSPORT_EXPRESS_SESSION_SECRET,
