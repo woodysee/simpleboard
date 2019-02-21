@@ -152,6 +152,33 @@ exports.update.one = (req, res) => {
 
 exports.delete.one = (req, res, next) => {
   // console.info(`${meta.resource.controller}.delete.one(): Destroy ${meta.resource.singular}. Invoked...`);
+  const id = req.params.id;
+  const docRef = db.collection('columns').doc(id);
+  docRef.get().then(doc => {
+    if (!doc.exists) {
+      res.status(404).send({
+        errors: [{
+          title: 'Column not found',
+          detail: 'Unable to find column',
+          meta: {
+            params: req.params
+          }
+        }]
+      });
+    } else {
+      docRef.delete().then(() => {
+        res.status(202).send();
+      });
+    }
+  }).catch(err => {
+    res.status(500).send({
+      errors: [{
+        title: 'Invalid ID',
+        detail: 'Unable to access database',
+        meta: err
+      }]
+    });
+  });
 };
 
 console.info(`${meta.prefix} ...initialised RESTful resources of ${meta.resource.plural}.`);
