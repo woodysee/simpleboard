@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Column } from '../column';
-import { ColumnService } from '../column.service';
+import { Task } from '../task';
+import { TaskService } from '../task.service';
 
 @Component({
   selector: 'app-board',
@@ -9,23 +9,23 @@ import { ColumnService } from '../column.service';
 })
 export class BoardComponent implements OnInit {
   title = 'Board';
-  columns: Column[];
+  tasks: Task[];
 
-  constructor(private columnService: ColumnService) {}
+  constructor(private taskService: TaskService) {}
 
-  getMockColumns(): void {
-    this.columnService.getMockColumns().subscribe(columns => this.columns = columns);
+  getMockTasks(): void {
+    this.taskService.getMockTasks().subscribe(tasks => this.tasks = tasks);
   }
 
-  getAllColumns(): void {
-    this.columnService.getAllColumns().subscribe(columns => {
-      this.columns = columns;
+  getAllTasks(): void {
+    this.taskService.getAllTasks().subscribe(tasks => {
+      this.tasks = tasks;
     });
   }
 
   ngOnInit() {
-    // this.getMockColumns();
-    this.getAllColumns();
+    // this.getMockTasks();
+    this.getAllTasks();
   }
 
 }

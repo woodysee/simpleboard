@@ -1,4 +1,4 @@
-export class Column {
+export class Task {
   id: string;
   title: string;
   description: string;

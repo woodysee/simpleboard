@@ -1,6 +1,6 @@
 const meta = {};
 meta.resource = {};
-meta.resource.title = 'Columns';
+meta.resource.title = 'Tasks';
 meta.prefix = `->`;
 
 console.info(`${meta.resource.title}: Loading resource...`);

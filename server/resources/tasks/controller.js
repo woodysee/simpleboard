@@ -1,12 +1,12 @@
 const meta = {};
 meta.resource = {};
-meta.resource.singular = `column`;
-meta.resource.plural = `columns`;
-meta.resource.controller = `columnsController`;
+meta.resource.singular = `task`;
+meta.resource.plural = `tasks`;
+meta.resource.controller = `tasksController`;
 meta.prefix = `->->`;
 
 console.info(`${meta.prefix} Initialising RESTful resources...`);
-const firebaseAdmin = require("../../db/firebase")("for ColumnsController.");
+const firebaseAdmin = require("../../db/firebase")("for TasksController.");
 
 // console.log('As a Google Firebase admin, the app has access to read and write all data, regardless of Google\'s Security Rules. For more, refer to https://firebase.google.com/docs/firestore/quickstart?authuser=0.');
 const db = firebaseAdmin.firestore();
@@ -23,31 +23,32 @@ exports.create.one = (req, res) => {
   // console.info(`${meta.resource.controller}.create.one(): Create a ${meta.resource.singular}. Invoked...`);
   // console.log(req.body);
   const id = uuidv4();
-  const newColumn = {
+  const newTask = {
     data: {
       type: meta.resource.plural,
       id: id,
       attributes: {
+        order: 0,
         title: req.body.title,
         description: req.body.description
       }
     }
   };
-  db.collection('columns').doc(id).set(newColumn);
-  res.status(201).send(newColumn);
+  db.collection('tasks').doc(id).set(newTask);
+  res.status(201).send(newTask);
 };
 
 exports.read.one = (req, res) => {
   // console.info(`${meta.resource.controller}.read.one(): Show ${meta.resource.singular} details. Invoked...`);
   const id = req.params.id;
-  const docRef = db.collection('columns').doc(id);
+  const docRef = db.collection('tasks').doc(id);
   docRef.get().then(doc => {
     if (!doc.exists) {
       res.status(404).send({
         errors: [
           {
-            title: 'Column not found',
-            detail: 'Unable to find column',
+            title: 'Task not found',
+            detail: 'Unable to find task',
             meta: {
               params: req.params
             }
@@ -55,8 +56,8 @@ exports.read.one = (req, res) => {
         ]
       });
     } else {
-      const queriedColumn = doc.data();
-      res.status(200).send(queriedColumn);
+      const queriedTask = doc.data();
+      res.status(200).send(queriedTask);
     }
   }).catch(err => {
     res.status(500).send({
@@ -73,9 +74,9 @@ exports.read.one = (req, res) => {
 
 exports.read.all = (req, res) => {
   // console.info(`${meta.resource.controller}.read.all(): Show all ${meta.resource.plural} and their details. Invoked...`);
-  let docRef = db.collection('columns');
+  let docRef = db.collection('tasks');
   if (req.query.orderBy) {
-    let dir = req.query.order ? req.query.order : 'desc';
+    let dir = req.query.dir ? req.query.dir : 'desc';
     let param = req.query.orderBy !== 'id' ? new FirestoreFieldPath('data', 'attributes', req.query.orderBy) : new FirestoreFieldPath('data', 'id');
     docRef = docRef.orderBy(param, dir);
     // See https://firebase.google.com/docs/database/rest/retrieve-data#filtering-by-a-specified-child-key for more info on querying nested keys
@@ -85,11 +86,11 @@ exports.read.all = (req, res) => {
     docRef = docRef.limit(limit);
   }
   docRef.get().then(snapshot => {
-    let allColumns = [];
+    let allTasks = [];
     snapshot.forEach(doc => {
-      allColumns.push(doc.data());
+      allTasks.push(doc.data());
     });
-    res.status(200).send(allColumns);
+    res.status(200).send(allTasks);
   }).catch(err => {
     res.status(500).send({
       errors: [{
@@ -104,13 +105,13 @@ exports.read.all = (req, res) => {
 exports.update.one = (req, res) => {
   // console.info(`${meta.resource.controller}.update.one(): Update details of a ${meta.resource.singular}. Invoked...`);
   const id = req.params.id;
-  const docRef = db.collection('columns').doc(id);
+  const docRef = db.collection('tasks').doc(id);
   docRef.get().then(doc => {
     if (!doc.exists) {
       res.status(404).send({
         errors: [{
-          title: 'Column not found',
-          detail: 'Unable to find column',
+          title: 'Task not found',
+          detail: 'Unable to find task',
           meta: {
             params: req.params
           }
@@ -130,7 +131,7 @@ exports.update.one = (req, res) => {
         res.status(400).send({
           errors: [{
             title: 'Update failed',
-            detail: 'Unable to update column',
+            detail: 'Unable to update task',
             meta: {
               error: err,
               body: req.body
@@ -153,13 +154,13 @@ exports.update.one = (req, res) => {
 exports.delete.one = (req, res, next) => {
   // console.info(`${meta.resource.controller}.delete.one(): Destroy ${meta.resource.singular}. Invoked...`);
   const id = req.params.id;
-  const docRef = db.collection('columns').doc(id);
+  const docRef = db.collection('tasks').doc(id);
   docRef.get().then(doc => {
     if (!doc.exists) {
       res.status(404).send({
         errors: [{
-          title: 'Column not found',
-          detail: 'Unable to find column',
+          title: 'Task not found',
+          detail: 'Unable to find task',
           meta: {
             params: req.params
           }

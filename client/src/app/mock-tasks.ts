@@ -1,5 +1,5 @@
-import { Column } from './column';
-export const mockColumns: Column[] = [
+import { Task } from './task';
+export const mockTasks: Task[] = [
   { id: '0', title: 'Backlog', description: 'Mr. Nice' },
   { id: '1', title: 'High Priority', description: 'Narco' },
   { id: '2', title: 'Doing', description: 'Bombasto' },

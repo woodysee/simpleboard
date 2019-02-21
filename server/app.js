@@ -27,7 +27,7 @@ app.use(cors());
 require('./views')(app);
 
 // console.info('Loading resources...');
-app.use("/columns", require("./resources/columns"));
+app.use("/tasks", require("./resources/tasks"));
 
 /*
 **

@@ -4,7 +4,7 @@ const express = require('express');
 module.exports = (app) => {
   
   const resources = [
-    "columns"
+    "tasks"
   ]; // <-- You can add more resource-specific views by adding in here
 
   let locations = [];

@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
-import { ColumnComponent } from './column/column.component';
+import { TaskComponent } from './task/task.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
   declarations: [
     AppComponent,
     BoardComponent,
-    ColumnComponent
+    TaskComponent
   ],
   imports: [
     BrowserModule,
