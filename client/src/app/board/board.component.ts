@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { mockColumns } from '../mock-columns';
+import { Column } from '../column';
+import { ColumnService } from '../column.service';
 
 @Component({
   selector: 'app-board',
@@ -8,11 +9,23 @@ import { mockColumns } from '../mock-columns';
 })
 export class BoardComponent implements OnInit {
   title = 'Board';
-  columns = mockColumns;
+  columns: Column[];
 
-  constructor() {}
+  constructor(private columnService: ColumnService) {}
+
+  getMockColumns(): void {
+    this.columnService.getMockColumns().subscribe(columns => this.columns = columns);
+  }
+
+  getAllColumns(): void {
+    this.columnService.getAllColumns().subscribe(columns => {
+      this.columns = columns;
+    });
+  }
 
   ngOnInit() {
+    // this.getMockColumns();
+    this.getAllColumns();
   }
 
 }

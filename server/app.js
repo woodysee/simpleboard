@@ -5,6 +5,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const flash = require("connect-flash");
+const cors = require('cors');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(flash());
 
 // console.info('Connecting to web client...');
 // app.use(express.static(__dirname + "/../client/build"));
+app.use(cors());
 
 // console.info('Initialising server-side view rendering...');
 require('./views')(app);
