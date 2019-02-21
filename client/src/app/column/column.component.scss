@@ -1,8 +1,29 @@
 .column {
-  background-color: lightgrey;
+  border: 1px solid rgba(0, 0, 0, .03);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .24),
+  0 1px 2px rgba(0, 0, 0, .12);
+  display: inline-block;
   margin: 10px;
-  padding: 10px;
-  min-width: 100px;
-  max-width: 500px;
-  width: 30vw;
+  height: 95%;
+  width: 300px;
+  header {
+    background: rgba(0, 0, 0, .03);
+    color: rgba(0, 0, 0, .54);
+    display: flex;
+    padding: 8px;
+    h3 {
+      font-size: 16px;
+      flex: 1 1 auto;
+      margin: 10px;
+      padding: 0;
+    }
+    &.column__actions {
+      button {
+        margin-right: 10px;
+      }
+    }
+    p {
+      font-size: 13px;
+    }
+  }
 }
