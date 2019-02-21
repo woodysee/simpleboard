@@ -19,7 +19,7 @@ exports.read = {};
 exports.update = {};
 exports.delete = {};
 
-exports.create.one = (req, res, next) => {
+exports.create.one = (req, res) => {
   // console.info(`${meta.resource.controller}.create.one(): Create a ${meta.resource.singular}. Invoked...`);
   // console.log(req.body);
   const id = uuidv4();
@@ -37,9 +37,9 @@ exports.create.one = (req, res, next) => {
   res.status(201).send(newColumn);
 };
 
-exports.read.one = (req, res, next) => {
+exports.read.one = (req, res) => {
   // console.info(`${meta.resource.controller}.read.one(): Show ${meta.resource.singular} details. Invoked...`);
-  const id = req.query.id;
+  const id = req.params.id;
   const docRef = db.collection('columns').doc(id);
   docRef.get().then(doc => {
     if (!doc.exists) {
@@ -49,7 +49,7 @@ exports.read.one = (req, res, next) => {
             title: 'Column not found',
             detail: 'Unable to find column',
             meta: {
-              params: req.query
+              params: req.params
             }
           }
         ]
@@ -62,7 +62,7 @@ exports.read.one = (req, res, next) => {
     res.status(500).send({
       errors: [
         {
-          title: 'Invalid query',
+          title: 'Invalid ID',
           detail: 'Unable to access database',
           meta: err
         }
@@ -101,9 +101,9 @@ exports.read.all = (req, res) => {
   });
 };
 
-exports.update.one = (req, res, next) => {
+exports.update.one = (req, res) => {
   // console.info(`${meta.resource.controller}.update.one(): Update details of a ${meta.resource.singular}. Invoked...`);
-  const id = req.query.id;
+  const id = req.params.id;
   const docRef = db.collection('columns').doc(id);
   docRef.get().then(doc => {
     if (!doc.exists) {
@@ -112,19 +112,38 @@ exports.update.one = (req, res, next) => {
           title: 'Column not found',
           detail: 'Unable to find column',
           meta: {
-            params: req.query
+            params: req.params
           }
         }]
       });
     } else {
-      const queriedColumn = doc.data();
-      res.status(200).send(queriedColumn);
+      const updatedKeys = Object.keys(req.body);
+      let toBeUpdated = {};
+      updatedKeys.forEach((key) => {
+        toBeUpdated[`data.attributes.${key}`] = req.body[key];
+      });
+      docRef.update(toBeUpdated).then(() => {
+        docRef.get().then(updatedDoc => {
+          res.status(200).send(updatedDoc.data());
+        });
+      }).catch(err => {
+        res.status(400).send({
+          errors: [{
+            title: 'Update failed',
+            detail: 'Unable to update column',
+            meta: {
+              error: err,
+              body: req.body
+            }
+          }]
+        });
+      });
     }
   }).catch(err => {
     res.status(500).send({
       errors: [{
         title: 'Invalid query',
-        detail: 'Unable to access database',
+        detail: 'Unable to query database',
         meta: err
       }]
     });
