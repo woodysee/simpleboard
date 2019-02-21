@@ -13,5 +13,5 @@ node_modules/
 # dotenv environment variables file
 *.env
 
-# Babel output
-server/build
+# Keys
+server/db/firebase-sak.json

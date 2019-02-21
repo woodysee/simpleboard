@@ -1,21 +1,22 @@
 require('dotenv').config();
-const mongoose = require("mongoose");
+
+const admin = require('firebase-admin');
+
+// console.log('Fetching the Google Firebase service account key JSON file contents...');
+const serviceAccount = require("./firebase-sak.json");
 
 module.exports = (forLocation) => {
 
-  console.info("Connecting to Firebase...");
-  mongoose.Promise = global.Promise; // To handle promise rejections. See http://mongoosejs.com/docs/promises.html
-  mongoose.set('useCreateIndex', true); // To prevent deprecation warning when running server: (node:39715) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
-  mongoose.connect(process.env.DB__MONGO_URI, { useNewUrlParser: true }).catch((err) => {
-    console.error("...Exception while connecting to MongoDB resource via mongoose. This is because:");
-    console.error(err);
-    console.info("Now exiting...");
-    process.exit();
+  console.info("-> Connecting to Firebase...");
+  
+  // console.log('Initialising the app with a Google Firebase service account, granting admin privileges...');
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: process.env.DB__FIREBASE_DB_URL
   });
-  const db = mongoose.connection;
-  db.on("error", console.error.bind(console, "Error while connecting to MongoDB resource via mongoose. This is because:"));
-  db.once("open", function() {
-    console.info("...connected to MongoDB resource " + forLocation);
-  });
+
+  console.info(`-> ...connected to Firebase ${forLocation}`)
+
+  return admin;
 
 }
