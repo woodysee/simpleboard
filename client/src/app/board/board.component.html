@@ -1,3 +1,20 @@
+<section class="tasks-actions">
+  <h2>{{ action.title }}</h2>
+  <form class="create-task-form" [formGroup]="taskForm">
+    <mat-form-field>
+      <input matInput type="text" formControlName="title" placeholder="Title" value="" autocomplete="off" />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <textarea matInput placeholder="Description" formControlName="description"></textarea>
+    </mat-form-field>
+    <br />
+    <button mat-raised-button (click)="createTask()">{{ action.button }}</button>
+    <br />
+  </form>
+</section>
+<hr />
 <section class="tasks">
+  <h2>Tasks</h2>
   <app-task *ngFor="let task of tasks" [task]="task"></app-task>
 </section>

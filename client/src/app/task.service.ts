@@ -41,8 +41,20 @@ export class TaskService {
 
   getAllTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(this.allTasksUrl).pipe(
-      catchError(this.handleError('getTasks', []))
+      catchError(this.handleError('getAllTasks', []))
     );
+  }
+
+  createTask(task: Task): Observable<Task> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post<Task>(this.allTasksUrl, task, httpOptions)
+      .pipe(
+        catchError(this.handleError('addTask', task))
+      );
   }
 
 }

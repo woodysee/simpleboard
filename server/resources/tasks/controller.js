@@ -30,7 +30,8 @@ exports.create.one = (req, res) => {
       attributes: {
         order: 0,
         title: req.body.title,
-        description: req.body.description
+        description: req.body.description,
+        done: false
       }
     }
   };
