@@ -12,6 +12,12 @@ import { mockTasks } from './mock-tasks';
 })
 export class TaskService {
 
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
   private allTasksUrl = 'http://localhost:3000/tasks/api';  // URL to web api
   /**
    * Handle Http operation that failed.
@@ -46,28 +52,24 @@ export class TaskService {
   }
 
   createTask(task: Task): Observable<Task> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-    return this.http.post<Task>(this.allTasksUrl, task.data.attributes, httpOptions)
+    return this.http.post<Task>(this.allTasksUrl, task.data.attributes, this.httpOptions)
       .pipe(
         catchError(this.handleError('addTask', task))
       );
   }
 
   updateTask(task: Task): Observable<Task> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
     // console.log(`${this.allTasksUrl}/${task.data.id}`);
-    return this.http.put<Task>(`${this.allTasksUrl}/${task.data.id}`, task.data.attributes  , httpOptions)
+    return this.http.put<Task>(`${this.allTasksUrl}/${task.data.id}`, task.data.attributes, this.httpOptions)
       .pipe(
         catchError(this.handleError('updateTask', task))
       );
+  }
+
+  deleteTask(task: Task): Observable<Task> {
+    return this.http.delete<Task>(`${this.allTasksUrl}/${task.data.id}`, this.httpOptions).pipe(
+      catchError(this.handleError('deleteTask', task))
+    );
   }
 
 }

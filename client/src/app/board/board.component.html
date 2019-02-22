@@ -16,5 +16,5 @@
 <hr />
 <section class="tasks">
   <h2>Tasks</h2>
-  <app-task *ngFor="let task of tasks" [task]="task"></app-task>
+<app-task *ngFor="let task of tasks" [task]="task" (uponTaskDeletion)="getAllTasks()"></app-task>
 </section>

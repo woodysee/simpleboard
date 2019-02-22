@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Task } from '../task';
 
@@ -13,6 +13,7 @@ import { TaskService } from '../task.service';
 export class TaskComponent implements OnInit {
 
   @Input() task: Task;
+  @Output() uponTaskDeletion = new EventEmitter();
 
   beingEdited = false;
 
@@ -48,11 +49,16 @@ export class TaskComponent implements OnInit {
   }
 
   updateTask(): void {
-    console.log(this.updateTaskForm.value);
     this.task.data.attributes.title = this.updateTaskForm.value.title;
     this.task.data.attributes.description = this.updateTaskForm.value.description;
-    this.taskService.updateTask(this.task).subscribe(task => {});
+    this.taskService.updateTask(this.task).subscribe(() => {});
     this.toggleUpdateTaskForm();
+  }
+
+  deleteTask(): void {
+    this.taskService.deleteTask(this.task).subscribe(() => {
+      this.uponTaskDeletion.emit(this.task);
+    });
   }
 
   ngOnInit() {

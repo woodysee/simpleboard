@@ -24,6 +24,6 @@
   </mat-card-content>
   <mat-card-actions>
     <button mat-button (click)="toggleUpdateTaskForm()">{{ action.buttons.edit }}</button>
-    <button mat-button *ngIf="!beingEdited">Delete</button>
+    <button mat-button *ngIf="!beingEdited" (click)="deleteTask()">Delete</button>
   </mat-card-actions>
 </mat-card>
