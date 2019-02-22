@@ -17,7 +17,7 @@
           <textarea matInput placeholder="Description" formControlName="description" [value]="task.data.attributes.description"></textarea>
         </mat-form-field>
         <br />
-        <button mat-raised-button (click)="updateTask()">{{ action.buttons.update }}</button>
+        <button mat-raised-button (click)="updateTask()" [disabled]="updateTaskForm.value.title === '' || updateTaskForm.value.description === ''">{{ action.buttons.update }}</button>
         <br />
       </form>
     </div>

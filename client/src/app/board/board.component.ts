@@ -30,12 +30,15 @@ export class BoardComponent implements OnInit {
     }
   };
   tasks: Task[];
+  createFormInvalidation = !(this.createTaskForm.dirty && this.createTaskForm.touched);
 
   constructor(private taskService: TaskService) {}
 
   createTask(): void {
     this.newTask.data.attributes.title = this.createTaskForm.value.title;
     this.newTask.data.attributes.description = this.createTaskForm.value.description;
+    this.createTaskForm.value.title = '';
+    this.createTaskForm.value.description = '';
     this.taskService.createTask(this.newTask).subscribe(task => this.tasks.push(task));
   }
 

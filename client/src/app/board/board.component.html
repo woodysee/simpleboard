@@ -9,7 +9,8 @@
       <textarea matInput placeholder="Description" formControlName="description"></textarea>
     </mat-form-field>
     <br />
-    <button mat-raised-button (click)="createTask()">{{ action.button }}</button>
+<button mat-raised-button (click)="createTask()" [disabled]="createTaskForm.value.title === '' || createTaskForm.value.description === ''">{{
+  action.button }}</button>
     <br />
   </form>
 </section>
