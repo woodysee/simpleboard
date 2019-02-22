@@ -51,8 +51,8 @@ export class TaskComponent implements OnInit {
     console.log(this.updateTaskForm.value);
     this.task.data.attributes.title = this.updateTaskForm.value.title;
     this.task.data.attributes.description = this.updateTaskForm.value.description;
-    this.beingEdited = false;
     this.taskService.updateTask(this.task).subscribe(task => {});
+    this.toggleUpdateTaskForm();
   }
 
   ngOnInit() {
