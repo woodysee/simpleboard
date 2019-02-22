@@ -20,18 +20,22 @@ export class BoardComponent implements OnInit {
     description: new FormControl(''),
   });
   newTask = {
-    id: '',
-    title: '',
-    description: '',
-    done: false
+    data: {
+      id: '',
+      attributes: {
+        title: '',
+        description: '',
+        done: false
+      }
+    }
   };
   tasks: Task[];
 
   constructor(private taskService: TaskService) {}
 
   createTask(): void {
-    this.newTask.title = this.taskForm.value.title;
-    this.newTask.description = this.taskForm.value.description;
+    this.newTask.data.attributes.title = this.taskForm.value.title;
+    this.newTask.data.attributes.description = this.taskForm.value.description;
     this.taskService.createTask(this.newTask).subscribe(task => this.tasks.push(task));
   }
 

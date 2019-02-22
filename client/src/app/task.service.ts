@@ -51,7 +51,7 @@ export class TaskService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<Task>(this.allTasksUrl, task, httpOptions)
+    return this.http.post<Task>(this.allTasksUrl, task.data.attributes, httpOptions)
       .pipe(
         catchError(this.handleError('addTask', task))
       );

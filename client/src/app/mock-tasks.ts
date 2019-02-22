@@ -1,8 +1,7 @@
 import { Task } from './task';
 export const mockTasks: Task[] = [
-  { id: '0', title: 'Backlog', description: 'Mr. Nice' },
-  { id: '1', title: 'High Priority', description: 'Narco' },
-  { id: '2', title: 'Doing', description: 'Bombasto' },
-  { id: '3', title: 'Ready for Testing', description: 'Celeritas' },
-  { id: '4', title: 'Done', description: 'Magneta' }
+  { data: { id: '1', attributes: { title: 'Narco', description: 'Mr. Nice', done: false } } },
+  { data: { id: '2', attributes: { title: 'Bombasto', description: 'Mr. Nice', done: true } } },
+  { data: { id: '3', attributes: { title: 'Celeritas', description: 'Mr. Nice', done: false } } },
+  { data: { id: '4', attributes: { title: 'Magneta', description: 'Mr. Nice', done: false } } },
 ];

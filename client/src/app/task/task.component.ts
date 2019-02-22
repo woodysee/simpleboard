@@ -13,6 +13,8 @@ export class TaskComponent implements OnInit {
 
   @Input() task: Task;
 
+  beingEdited = false;
+
   constructor(private taskService: TaskService) { }
 
   toogleTaskCompletion(): void {
