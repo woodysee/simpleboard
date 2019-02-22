@@ -57,4 +57,17 @@ export class TaskService {
       );
   }
 
+  updateTask(task: Task): Observable<Task> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    // console.log(`${this.allTasksUrl}/${task.data.id}`);
+    return this.http.put<Task>(`${this.allTasksUrl}/${task.data.id}`, task.data.attributes  , httpOptions)
+      .pipe(
+        catchError(this.handleError('updateTask', task))
+      );
+  }
+
 }

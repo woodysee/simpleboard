@@ -1,6 +1,10 @@
 export class Task {
-  id: string;
-  title: string;
-  description: string;
-  done: boolean;
+  data: {
+    id: string;
+    attributes: {
+      title: string;
+      description: string;
+      done: boolean;
+    }
+  };
 }

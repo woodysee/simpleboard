@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>
-      <mat-checkbox>&nbsp;{{ task.data.attributes.title }}</mat-checkbox>
+      <mat-checkbox (change)="toogleTaskCompletion()" [checked]="task.data.attributes.done">&nbsp;{{ task.data.attributes.title }}</mat-checkbox>
     </mat-card-title>
     <mat-card-subtitle>{{ task.data.attributes.done ? 'Completed' : 'In progress' }}</mat-card-subtitle>
   </mat-card-header>
