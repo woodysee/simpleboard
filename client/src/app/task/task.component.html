@@ -1,16 +1,29 @@
 <mat-card>
-  <mat-card-header>
+  <mat-card-header *ngIf="!beingEdited">
     <mat-card-title>
       <mat-checkbox (change)="toogleTaskCompletion()" [checked]="task.data.attributes.done">&nbsp;{{ task.data.attributes.title }}</mat-checkbox>
     </mat-card-title>
     <mat-card-subtitle>{{ task.data.attributes.done ? 'Completed' : 'In progress' }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p>{{ task.data.attributes.description }}</p>
-    <!-- <form *ngIf="false">Test</form> -->
+  <p *ngIf="!beingEdited">{{ task.data.attributes.description }}</p>
+    <div class="edit-form-wrapper" *ngIf="beingEdited">
+      <form class="update-task-form" [formGroup]="updateTaskForm">
+        <mat-form-field>
+          <input matInput type="text" formControlName="title" placeholder="Title" [value]="task.data.attributes.title" autocomplete="off" />
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+          <textarea matInput placeholder="Description" formControlName="description" [value]="task.data.attributes.description"></textarea>
+        </mat-form-field>
+        <br />
+        <button mat-raised-button (click)="updateTask()">{{ action.buttons.update }}</button>
+        <br />
+      </form>
+    </div>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>Edit</button>
-    <button mat-button>Delete</button>
+    <button mat-button (click)="toggleUpdateTaskForm()">{{ action.buttons.edit }}</button>
+    <button mat-button *ngIf="!beingEdited">Delete</button>
   </mat-card-actions>
 </mat-card>

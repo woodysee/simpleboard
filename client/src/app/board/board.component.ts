@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 import { Task } from '../task';
@@ -15,7 +15,7 @@ export class BoardComponent implements OnInit {
     title: 'New task',
     button: 'Create'
   };
-  taskForm = new FormGroup({
+  createTaskForm = new FormGroup({
     title: new FormControl(''),
     description: new FormControl(''),
   });
@@ -34,8 +34,8 @@ export class BoardComponent implements OnInit {
   constructor(private taskService: TaskService) {}
 
   createTask(): void {
-    this.newTask.data.attributes.title = this.taskForm.value.title;
-    this.newTask.data.attributes.description = this.taskForm.value.description;
+    this.newTask.data.attributes.title = this.createTaskForm.value.title;
+    this.newTask.data.attributes.description = this.createTaskForm.value.description;
     this.taskService.createTask(this.newTask).subscribe(task => this.tasks.push(task));
   }
 
