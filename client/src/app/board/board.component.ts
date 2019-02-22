@@ -37,8 +37,7 @@ export class BoardComponent implements OnInit {
   createTask(): void {
     this.newTask.data.attributes.title = this.createTaskForm.value.title;
     this.newTask.data.attributes.description = this.createTaskForm.value.description;
-    this.createTaskForm.value.title = '';
-    this.createTaskForm.value.description = '';
+    this.createTaskForm.reset();
     this.taskService.createTask(this.newTask).subscribe(task => this.tasks.push(task));
   }
 
