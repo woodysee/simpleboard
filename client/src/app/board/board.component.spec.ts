@@ -24,7 +24,7 @@ describe('BoardComponent', () => {
   });
 
   it('should create a task in the create task form', () => {
-    component.taskForm.setValue({ title: 'Default task', description: 'Default description' });
+    component.createTaskForm.setValue({ title: 'Default task', description: 'Default description' });
 
     const input = fixture.nativeElement.querySelector('input');
 

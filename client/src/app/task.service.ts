@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
+import { environment } from '../environments/environment';
+
 import { Task } from './task';
 import { mockTasks } from './mock-tasks';
 
@@ -18,7 +20,7 @@ export class TaskService {
     })
   };
 
-  private allTasksUrl = 'http://localhost:3000/tasks/api';  // URL to web api
+  private allTasksUrl = `${environment.serverUrl}/tasks/api`;  // URL to web api
   /**
    * Handle Http operation that failed.
    * Let the app continue.
