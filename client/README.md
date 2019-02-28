@@ -24,7 +24,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ### Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `ng build --outputPath="dist" --prod --progress=true` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build. `--outputPath="dist"` will compile the Angular client app on the `dist/` folder instead of `dist/client/` folder. See [Angular build flags](https://angular.io/cli/build) and [read more about Firebase hosting](https://medium.com/@longboardcreator/deploying-angular-6-applications-to-firebase-hosting-b5dacde9c772).
 
 ### Running unit tests
 

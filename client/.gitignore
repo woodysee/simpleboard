@@ -7,6 +7,10 @@
 # Only exists if Bazel was run
 /bazel-out
 
+# Environment files
+environment.ts
+environment.prod.ts
+
 # dependencies
 /node_modules
 
