@@ -8,9 +8,7 @@ This single page app is set up to be hosted on Firebase.
 
 ### Getting environment variables
 
-```shell
-firebase functions:config:get --project <FIREBASE_PROJECT_ID>
-```
+Environment files are kept within `src/environments`. Copy `environment.example.ts` into `environment.prod.ts` and `environment.ts`.
 
 ## Angular
 
